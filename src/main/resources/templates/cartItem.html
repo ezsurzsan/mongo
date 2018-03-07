@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
+<head>
+<title>Show Product</title>
+</head>
+<body>
+	<div layout:fragment="content" class="row">
+		<div class="col-xs-8 col-md-8">
+			<br />
+			<h3>
+				<a href="/cartItem" class="btn btn-primary"><span
+					class="glyphicon glyphicon-list"></span> Shopping Cart</a>
+			</h3>
+			<h2>Item List</h2>
+			<div class="table-responsive">
+				<table class="table" id="cart-table">
+					<thead class="thead-inverse">
+						<tr>
+							<th>Product Name</th>
+							<th>Product Price</th>
+							<th>Quantity</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cartItem : ${cartItems}">
+							<td><a th:text="${cartItem.productName}"
+								th:href="@{'/show/' + ${cartItem.productId}}"></a></td>
+							<td th:text="${cartItem.productPrice}"></td>
+							<td th:text="${cartItem.productQty}"></td>
+							<td><form action="/cart/deleteOne">
+
+									<input type="hidden" name="id" th:value="${cartItem.productId}" />
+									<button type="submit" class="btn btn-danger">Delete</button>
+								</form>
+							<td>
+								<form action="/cart/deleteAll">
+
+									<input type="hidden" name="id" th:value="${cartItem.productId}" />
+									<button type="submit" class="btn btn-danger">Delete
+										All</button>
+								</form>
+							</td>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Total price:</td>
+							<td th:text="${totalPrice}"></td>
+							<td>
+								<form action="/cart/placeOrder">
+
+									<button type="submit" class="btn btn-success">Place order</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

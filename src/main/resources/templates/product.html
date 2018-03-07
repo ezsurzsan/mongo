@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
+<head>
+<title>Product List</title>
+
+<link href="../static/css/product.css" th:href="@{/css/product.css}" rel="stylesheet" />
+
+</head>
+<body>
+	<div layout:fragment="content" class="boxes">
+		<br />
+		<div class="box box1">
+
+
+			<a href="/create" class="btn btn-primary"><span
+				class="glyphicon glyphicon-plus-sign"></span> Add new product</a> <br />
+			<br></br> <a href="/cartItem" class="btn btn-primary"><span
+				class="glyphicon glyphicon-plus-sign"></span>Shopping cart</a> <br /> <br></br>
+			<div class="card-header" id="first">
+				<h4>Brand</h4>
+				<label class="custom-control-label " for="customCheck1">Apple
+					:</label><input type="checkbox" class ="brandC" aria-label="erik" id="customCheck1" value="Apple" /><br />
+				<label class="custom-control-label" for="customCheck2">Huawei
+					:</label><input type="checkbox" class ="brandC" aria-label="erik" id="customCheck2" value="Huawei"/><br />
+				<label class="custom-control-label" for="customCheck3">test
+					:</label><input type="checkbox" class ="brandC" aria-label="erik" id="customCheck3" value="test"/><br />
+
+			</div>
+			<br />
+			<div class="card-header" id="second">
+				<h4>Year</h4>
+
+				<label class="custom-control-label" for="customCheck4">2016
+					:</label><input type="checkbox" class ="yearC" aria-label="erik" id="customCheck4" value="2016" /><br />
+				<label class="custom-control-label" for="customCheck5">2017
+					:</label><input type="checkbox" class ="yearC" aria-label="erik" id="customCheck5" value="2017"/><br />
+
+			</div>
+			<br />
+			<div class="card-header" id="second">
+				<h4>Operating System</h4>
+
+				<label class="custom-control-label" for="customCheck4">Android
+					:</label><input type="checkbox" class ="osC" aria-label="erik" id="customCheck4" value="Android"/><br />
+				<label class="custom-control-label" for="customCheck5">iOS
+					:</label><input type="checkbox" class ="osC" aria-label="erik" id="customCheck5" value="iOS"/><br />
+
+			</div>
+			<br/>
+			<div class="btn btn-info"  onclick="searchWithFilters()">Apply filters</div>
+		</div>
+		<div class="table-responsive box box2">
+			<table class="table" id="product-table">
+				<thead class="thead-inverse">
+					<tr>
+						<th>Product Name</th>
+						<th>Short description</th>
+						<th>Product Price</th>
+						<th>Quantity</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${products}">
+						<td><a th:text="${product.prodName}"
+							th:href="@{'/show/' + ${product.id}}"></a></td>
+						<td th:text="${product.prodDesc}"></td>
+						<td th:text="${product.prodPrice}"></td>
+						<td th:text="${product.prodQty}"></td>
+						<td>
+							<div class="input-group">
+								<select class="custom-select" id="inputGroupSelect04">
+									<option value="5a81517854dbfe178ce1018b">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+								</select>
+								<div class="input-group-append">
+									<form action="/addToCart">
+										<input type="hidden" name="id" th:value="${product.id}" />
+										<button type="submit" class="btn btn-success">Add</button>
+									</form>
+								</div>
+							</div>
+						</td>
+
+
+					</tr>
+				</tbody>
+			</table>
+			<nav aria-label="...">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link" href="#"
+						tabindex="-1">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+				</ul>
+
+			</nav>
+		</div>
+
+	</div>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/product.js" th:src="@{/js/product.js}"></script>
+</body>
+</html>
